@@ -1,9 +1,10 @@
 # PyConvertAPI Image Converter
-![MIT License](https://img.shields.io/github/license/ti-oluwa/pyconvertapi-image-converter?style=for-the-badge)
-![Python Version](https://img.shields.io/pypi/pyversions/pyconvertapi-image-converter?style=for-the-badge)
+![GitHub MIT License](https://img.shields.io/github/license/ti-oluwa/pyconvertapi_image_converter?color=%23E1e5&style=plastic)
+![Languages used](https://img.shields.io/github/languages/top/ti-oluwa/pyconvertapi_image_converter)
+![Code size](https://img.shields.io/github/languages/code-size/ti-oluwa/pyconvertapi_image_converter)
 ![Utilities](https://img.shields.io/badge/Utilities-1-blue?style=for-the-badge)
 
-PyConvertAPI Image Converter is a Python library for converting images to different formats using [ConvertAPI](https://www.convertapi.com/). ConvertAPI is a cloud based file conversion API. It allows you to convert files from one format to another. It supports over 200 different file formats and conversion types. ConvertAPI is a paid service. You can sign up for a free account and get 100 free conversions per month. You can also get a paid account with more conversions per month. You can find more information about ConvertAPI at [https://www.convertapi.com/](https://www.convertapi.com/).
+PyConvertAPI Image Converter is a Python library for converting images to different formats using [ConvertAPI](https://www.convertapi.com/). ConvertAPI is a cloud based file conversion API. It allows you to convert files from one format to another. It supports over 200 different file formats and conversion types. ConvertAPI is a paid service. You can sign up for a free account and get 100 free conversions per month. You can also get a paid account with more conversions per month. You can find more information about ConvertAPI at [https://www.convertapi.com/](convertapi.com).
 
 ## Installation
 * Ensure you have python3 and pip installed on your system.
@@ -74,6 +75,7 @@ Pull requests and feedbacks are welcome. For major changes, please open an issue
 Please make sure to update tests as appropriate.
 
 ## Authors and acknowledgment
-* [**ti-oluwa**](https://github.com/ti-oluwa)
+
+* [**ti-oluwa**](https://github.com/ti-oluwa) ![Twitter Follow](https://img.shields.io/twitter/follow/ti_oluwa_?style=social)
 * [**ConvertAPI**](https://www.convertapi.com/)
 * [**ConvertAPI Python Client**](https://github.com/ConvertAPI/convertapi-python)
