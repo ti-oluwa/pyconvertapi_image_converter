@@ -4,7 +4,7 @@
 ![Code size](https://img.shields.io/github/languages/code-size/ti-oluwa/pyconvertapi_image_converter)
 ![Utilities](https://img.shields.io/badge/Utilities-1-blue?style=plastic)
 
-PyConvertAPI Image Converter is a Python library for converting images to different formats using [ConvertAPI](https://www.convertapi.com/). ConvertAPI is a cloud based file conversion API. It allows you to convert files from one format to another. It supports over 200 different file formats and conversion types. ConvertAPI is a paid service. You can sign up for a free account and get 100 free conversions per month. You can also get a paid account with more conversions per month. You can find more information about ConvertAPI at [https://www.convertapi.com/](convertapi.com).
+PyConvertAPI Image Converter is a Python library for converting images to different formats using [ConvertAPI](https://www.convertapi.com/). ConvertAPI is a cloud based file conversion API. It allows you to convert files from one format to another. It supports over 200 different file formats and conversion types. ConvertAPI is a paid service. You can sign up for a free account and get 100 free conversions per month. You can also get a paid account with more conversions per month. You can find more information about ConvertAPI at [convertapi.com](https://www.convertapi.com/).
 
 ## Installation
 * Ensure you have python3 and pip installed on your system.
