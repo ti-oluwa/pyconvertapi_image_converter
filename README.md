@@ -57,7 +57,7 @@ converter.convert('path/to/directory', to_format='png')
 ### Supported formats
 To get a list of supported formats, you can use the following code:
 ```python
-from pyconvertapi_image_converter import to_formats, from_formats
+from pyconvertapi_image_converter.image_converter import to_formats, from_formats
 
 # Get a list of supported formats for input files
 print(from_formats)

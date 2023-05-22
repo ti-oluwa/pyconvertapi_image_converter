@@ -11,6 +11,7 @@ This package makes it easy to use ConvertAPI in your Python projects.
 """
 __all__ = ['ConvertAPIImageConverter']
 __version__ = '0.0.1'
+__date__ = ''
 __author__ = 'ti-oluwa'
 __author_email__ = 'tioluwa.dev@gmail.com'
 __description__ = 'A simple image converter using the ConvertAPI API'
@@ -25,7 +26,4 @@ __keywords__ = 'convertapi image converter'
 # Get your convertapi secret key from https://www.convertapi.com/a
 from .image_converter import ConvertAPIImageConverter
 
-pyconvertapi_image_converter = ConvertAPIImageConverter
-
-to_formats = ['jpg', 'png', 'svg', 'webp', 'tiff']
-from_formats = ['jpg', 'png', 'svg', 'jpeg', 'webp', 'tiff', 'jpeg', 'heic', 'ico', 'gif']
+PyImageConverter = ConvertAPIImageConverter
