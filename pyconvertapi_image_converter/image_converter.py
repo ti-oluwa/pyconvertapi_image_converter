@@ -3,8 +3,10 @@ import concurrent.futures
 import convertapi
 import time
 from typing import Any
-import pyconvertapi_image_converter
 
+
+to_formats = ['jpg', 'png', 'svg', 'webp', 'tiff']
+from_formats = ['jpg', 'png', 'svg', 'jpeg', 'webp', 'tiff', 'jpeg', 'heic', 'ico', 'gif']
 
 class ConvertAPIImageConverter:
     """
@@ -20,25 +22,22 @@ class ConvertAPIImageConverter:
     """
     image_quality: int = 90
     image_dpi: int = 326
-    api_secret: str = None
     _store_files: bool = True
+    api_secret: str = None
     save_to: str = None
 
-    def __init__(self, api_secret: str, save_to: str | None = None) -> None:
-        if not isinstance(api_secret, str):
-            raise TypeError('Invalid type for api_secret. Should be a string')
-
+    def __init__(self, api_secret: str, save_to: str) -> None:
         self.api_secret = api_secret
-        self.save_to = save_to 
+        self.save_to = os.path.abspath(save_to)
 
     
     def __setattr__(self, __name: str, __value: Any) -> None:
         super().__setattr__(__name, __value)
-        self.__validate_cls_attrs()
+        self._validate_cls_attrs()
 
 
     @classmethod
-    def __validate_cls_attrs(cls):
+    def _validate_cls_attrs(cls):
         if cls.api_secret and not isinstance(cls.api_secret, str):
             raise TypeError('Invalid type for api_secret. Should be a string')
         if not isinstance(cls.image_quality, int):
@@ -83,15 +82,15 @@ class ConvertAPIImageConverter:
         to_format = to_format.removeprefix('.')
 
         if os.path.isfile(path):
-            return self.__convert_image_to(path, to_format)
+            return self._convert_image_to(path, to_format)
         if os.path.isdir(path):
-            return self.__convert_images_to(path, to_format)
+            return self._convert_images_to(path, to_format)
         raise ValueError('`path` does not point to a file or directory')
 
 
-    def __convert_image_to(self, path: str, to_fmt: str):
-        name, from_fmt = self.__get_file_attr(path)
-        if not self.__validate_formats(to_fmt, from_fmt):
+    def _convert_image_to(self, path: str, to_fmt: str):
+        name, from_fmt = self._get_file_attr(path)
+        if not self._validate_formats(to_fmt, from_fmt):
             raise Exception("Unsupported conversion format detected for file: %s" % name)
 
         if not to_fmt == from_fmt:
@@ -106,39 +105,39 @@ class ConvertAPIImageConverter:
         return None
 
     
-    def __convert_images_to(self, path: str, to_fmt: str):
-        image_files = self.__get_supported_images_in_dir(path)
+    def _convert_images_to(self, path: str, to_fmt: str):
+        image_files = self._get_supported_images_in_dir(path)
         # slice image_files into parts of 10
         image_files_slice = [ image_files[i:i + 10] for i in range(0, len(image_files), 10) ]
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
             for img_files in image_files_slice:
-                executor.map(lambda args: self.__convert_image_to(*args), [ (path, to_fmt) for path in img_files ])
+                executor.map(lambda args: self._convert_image_to(*args), [ (path, to_fmt) for path in img_files ])
                 time.sleep(3)
         return None
 
 
     @staticmethod
-    def __get_file_attr(file_path: str):
+    def _get_file_attr(file_path: str):
         filename = os.path.basename(file_path)
         file_format = os.path.splitext(file_path)[1].removeprefix('.')
         return filename, file_format
 
 
     @staticmethod
-    def __validate_formats(to_fmt:str, from_fmt: str):
-        if to_fmt in pyconvertapi_image_converter.to_formats and from_fmt in pyconvertapi_image_converter.from_formats:
+    def _validate_formats(to_fmt:str, from_fmt: str):
+        if to_fmt in to_formats and from_fmt in from_formats:
             return True
         return False
 
 
-    def __get_supported_images_in_dir(self, dir_path: str):
+    def _get_supported_images_in_dir(self, dir_path: str):
         dir_contents = os.listdir(dir_path)
         dir_files = filter(lambda content: os.path.isfile(f"{dir_path}/{content}"), dir_contents)
         dir_images = []
         for file in dir_files:
             file_path = os.path.join(dir_path, file)
-            _, fmt = self.__get_file_attr(file_path)
+            _, fmt = self._get_file_attr(file_path)
             if fmt in py:
                 dir_images.append(file_path)
         return dir_images
