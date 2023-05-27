@@ -142,7 +142,7 @@ class ConvertAPIImageConverter:
         for file in dir_files:
             file_path = os.path.join(dir_path, file)
             _, fmt = self._get_file_attr(file_path)
-            if fmt in py:
+            if fmt in from_formats:
                 dir_images.append(file_path)
         return dir_images
 

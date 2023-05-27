@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pyconvertapi-image-converter
-Version: 0.0.1
+Version: 0.1.2
 Summary: PyConvertAPI Image Converter is a Python library for converting images to different formats using ConvertAPI
 Author-email: ti-oluwa <tioluwa.dev@gmail.com>
 Maintainer-email: ti-oluwa <tioluwa.dev@gmail.com>
