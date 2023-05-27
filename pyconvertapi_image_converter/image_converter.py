@@ -13,7 +13,7 @@ class ConvertAPIImageConverter:
     Converts supported image type(s) to specified supported format.
 
     :param api_secret: convertapi secret key
-    :param save_to: path to save converted images to. Defaults to the directory containing the image(s) to convert
+    :param save_to: path to save converted images to.
 
     :attribute image_quality: image quality. Defaults to 90
     :attribute image_dpi: image resolution. Defaults to 326
@@ -101,7 +101,11 @@ class ConvertAPIImageConverter:
                 'ImageQuality': self.image_quality,
                 'StoreFile': self._store_files
             }
-            convertapi.convert(to_format=to_fmt, params=params, from_format=from_fmt).save_files(self.save_to)
+            save_to = os.path.join(self.save_to, name.replace(from_fmt, to_fmt))
+            os.makedirs(os.path.dirname(save_to), exist_ok=True)
+            f = open(save_to, "w")
+            f.close()
+            convertapi.convert(to_format=to_fmt, params=params, from_format=from_fmt).save_files(save_to)
         return None
 
     
