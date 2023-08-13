@@ -10,7 +10,7 @@ This package makes it easy to use ConvertAPI in your Python projects.
 #### LICENSE: MIT License
 """
 __all__ = ['ConvertAPIImageConverter']
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __date__ = ''
 __author__ = 'ti-oluwa'
 __author_email__ = 'tioluwa.dev@gmail.com'
@@ -26,4 +26,4 @@ __keywords__ = 'convertapi image converter'
 # Get your convertapi secret key from https://www.convertapi.com/a
 from .image_converter import ConvertAPIImageConverter
 
-PyImageConverter = ConvertAPIImageConverter
+ImageConverter = ConvertAPIImageConverter
