@@ -82,15 +82,22 @@ class ConvertAPIImageConverter:
         to_format = to_format.removeprefix('.')
 
         if os.path.isfile(path):
-            return self._convert_image_to(path, to_format)
+            return self.convert_image_to(path, to_format)
         if os.path.isdir(path):
-            return self._convert_images_to(path, to_format)
+            return self.convert_images_to(path, to_format)
         raise ValueError('`path` does not point to a file or directory')
 
 
-    def _convert_image_to(self, path: str, to_fmt: str):
-        name, from_fmt = self._get_file_attr(path)
-        if not self._validate_formats(to_fmt, from_fmt):
+    def convert_image_to(self, path: str, to_fmt: str):
+        """
+        Convert an image to specified format.
+
+        :param path: path to the image file
+        :param to_fmt: the format to convert to. Valid values are: 'jpg', 'png', 'svg', 'webp', 'tiff'
+        :return: None
+        """
+        name, from_fmt = self.get_file_attr(path)
+        if not self.validate_formats(to_fmt, from_fmt):
             raise Exception("Unsupported conversion format detected for file: %s" % name)
 
         if not to_fmt == from_fmt:
@@ -109,39 +116,65 @@ class ConvertAPIImageConverter:
         return None
 
     
-    def _convert_images_to(self, path: str, to_fmt: str):
-        image_files = self._get_supported_images_in_dir(path)
+    def convert_images_to(self, path: str, to_fmt: str):
+        """
+        Convert images in a directory to specified format.
+
+        :param path: path to the directory containing the image files
+        :param to_fmt: the format to convert to. Valid values are: 'jpg', 'png', 'svg', 'webp', 'tiff'
+        :return: None
+        """
+        image_files = self.get_supported_images_in_dir(path)
         # slice image_files into parts of 10
         image_files_slice = [ image_files[i:i + 10] for i in range(0, len(image_files), 10) ]
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
             for img_files in image_files_slice:
-                executor.map(lambda args: self._convert_image_to(*args), [ (path, to_fmt) for path in img_files ])
+                executor.map(lambda args: self.convert_image_to(*args), [ (path, to_fmt) for path in img_files ])
                 time.sleep(3)
         return None
 
 
     @staticmethod
-    def _get_file_attr(file_path: str):
+    def get_file_attr(file_path: str):
+        """
+        Get file name and format from file path.
+
+        :param file_path: path to the file
+        :return: tuple of file name and format
+        """
         filename = os.path.basename(file_path)
         file_format = os.path.splitext(file_path)[1].removeprefix('.')
         return filename, file_format
 
 
     @staticmethod
-    def _validate_formats(to_fmt:str, from_fmt: str):
+    def validate_formats(to_fmt:str, from_fmt: str):
+        """
+        Validate conversion formats.
+
+        :param to_fmt: format to convert to
+        :param from_fmt: format to convert from
+        :return: True if formats are valid, False otherwise
+        """
         if to_fmt in to_formats and from_fmt in from_formats:
             return True
         return False
 
 
-    def _get_supported_images_in_dir(self, dir_path: str):
+    def get_supported_images_in_dir(self, dir_path: str):
+        """
+        Returns a list of supported images in a directory.
+
+        :param dir_path: path to the directory
+        :return: list of supported images in the directory
+        """
         dir_contents = os.listdir(dir_path)
         dir_files = filter(lambda content: os.path.isfile(f"{dir_path}/{content}"), dir_contents)
         dir_images = []
         for file in dir_files:
             file_path = os.path.join(dir_path, file)
-            _, fmt = self._get_file_attr(file_path)
+            _, fmt = self.get_file_attr(file_path)
             if fmt in from_formats:
                 dir_images.append(file_path)
         return dir_images
